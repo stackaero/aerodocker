@@ -1,23 +1,59 @@
 {
-    "instanceName": "webAppInstance",
-    "imageCode":"ami-1e299d7e",
-    "instanceType": "t2.micro",
-    "SecurityGroups": {
-        "groupName":"webSecGroup",
-        "IpPermissions":[
-           {
-              "IpProtocol": "tcp",
-              "FromPort": 80,
-              "ToPort": 80,
-              "IpRanges": [{"CidrIp":"0.0.0.0/0"}]
-          },
-          {
-              "IpProtocol": "tcp",
-              "FromPort": 22,
-              "ToPort": 22,
-              "IpRanges": [{"CidrIp":"0.0.0.0/0"}]
-          }
-        ]
+    "access": {
+        "user": "ubuntu",
+        "keypair": {
+            "name": "awskey",
+            "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAgZGphCYQk0oo5ptLeV23yxdLwaRYugJxYIS5fRy0DDB55HAQeyHFtY6RecQJ\nPE0+afJiJBT/cWS/2j7p+ahE4xvB0kis+ZyOvjFU9VOA7qzSTjZpUcupHgArpPujHu3myLQpVkJs\nYeHhsodyTRUltNP2kUv/dSeGcg1LDZz/f7zzuC0myiE1qAcQhuxZlDITXNEbMGZDMnBhVhjvaELb\nZRr9E92nZKCTIDkHqyF4fF95WKOdh3Pa7OIM0Cub4I0LjuFOfONiPmlIynoQwafyZma/vc595wNB\nwNtLaHjwYFCC3MISYTsMaQWBM5o5GwXOiFRONdGRkZ7eNVhbj4vg4wIDAQABAoIBADqrJTHUNo8q\n9kgtK0iiOfW477GX5CEduA63KnJPS+t1C8x3Pc8zZJ2oF5EmRfRLGabJfMzPwTasIv8Em9dS7RZU\n3DeGduRzkmLmXYzUKb5o/LUziA7khAg0lY6X7q2zlVtt0IXhf8f2isbW89eZasBtdekmm16F7ie4\ngzJ/02UYGMIOVrT84xAn5NmzMGD7pEOSlKI4cyIN/tc4AudqNTe0AULOfzIkhMHx0Rsjjsm++I7v\nnrDH7JvGwQcdDMvfVhftZ3rpCClO8IDMj8rui0iZFtwQuw+kRaBC/PVnsqGiKIXwSu3RsOwsD27R\nVnU1SPBu5Afyhpyft2tkv62J1YkCgYEAzO1dHhJSUyAd9EQBMkxttC+RTFWIavJOg/etiSgfqQ3y\nRrFmjwC9DrD6ebcFlzYYSY9+N8wk0urS7tdoM3vWG0MmNxH3YnRifkFslZa2rY4HHJv2xl+TMT25\ncVgH5zIMR2uli3bJFxYBO0NTyxoWw1EdHcuvpux4qStUWLeiPsUCgYEAodxXaF54/MySUyg8ThLT\nBJf2x8zJdOH+4k0vOfuYv5rcM6WyJUgfHuSq0f5ROoq71eMB9jWu3OlDNRNOqYa/A3z331CffNB2\nFBBR9s+vdAqI/63Xe58Uto5b6ICISxqSyVEz2KvB7k2iO66wByISTNv/U581VKZaqpQEWNDGG4cC\ngYA0MBbQu7W/eaRnOpJbbt9ZTevg1r+BDOg173OARHmbofObUT5fGL8M6MFBEf0Yfyw8P5DTQOf3\n1tmU/cKJqfXix30J9UddCWqz4JF4nwMyu8LP5GA6MMjZd3CsjtCkbjh2T9G+7KdVe8MghormZGR7\npUKW/fJjvkEUQ/adCVcGSQKBgA2GP7d0zV8yKLfSENflMsSbff9L2Tlu+MEn+d46a5T295dJLQ14\nbUFDkhJh0Z+2n+NLSIquCaJjyz3QEy6PF77O3ldGgU0IjhU3F+IrkFl919ylRfAKZsyqMHvI4ZqE\n6ebwZgigsV+cFQYvnn26FxVc/IScNPSRwdmm7IYPS75ZAoGBAL9QVUFMYlRG+vY7c1C9jNROL5cG\n+MHk0EIvoUu2M2AL0DLgD4AaeHpSs/uxVF7igZy3jPoKmpNevjGF2A46kfcwch9Ul9cMUaCx4/DQ\nenTvjQrSRUz0wovEQ1PLivFcRhTq/RsV7HFHtF1aEM/+fx5nUzAfEhpW+IxPTZ+Xo8Py\n-----END RSA PRIVATE KEY-----"
+        }
     },
-    "KeyPair" : "webAppKP"
+    "instanceDef": {
+        "instanceName": "webAppInstance",
+        "imageCode": "ami-1e299d7e",
+        "instanceType": "t2.micro",
+        "SecurityGroups": {
+            "groupName": "webSecGroup",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ]
+                },
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ]
+                }
+            ]
+        },
+        "KeyPair": "awskey"
+    },
+    "playbooks": [
+        {
+            "name":"install nodejs",
+            "content":"---\n- hosts: all\n  become: yes\n  become_method: sudo\n  become_user: root\n  vars: \n    version: 4.7.3\n  roles:\n    - nodejs"
+        }
+    ],
+    "containers":[
+        {
+            "name":"Mongodb",
+            "image":"",
+            "command":"",
+            "variables":[
+                {
+                    "key":"USERNAME",
+                    "value":"test"
+                }
+            ]
+        }
+    ]
 }
