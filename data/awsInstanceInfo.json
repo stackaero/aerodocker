@@ -1,0 +1,23 @@
+{
+    "instanceName": "webAppInstance",
+    "imageCode":"ami-1e299d7e",
+    "instanceType": "t2.micro",
+    "SecurityGroups": {
+        "groupName":"webSecGroup",
+        "IpPermissions":[
+           {
+              "IpProtocol": "tcp",
+              "FromPort": 80,
+              "ToPort": 80,
+              "IpRanges": [{"CidrIp":"0.0.0.0/0"}]
+          },
+          {
+              "IpProtocol": "tcp",
+              "FromPort": 22,
+              "ToPort": 22,
+              "IpRanges": [{"CidrIp":"0.0.0.0/0"}]
+          }
+        ]
+    },
+    "KeyPair" : "webAppKP"
+}
